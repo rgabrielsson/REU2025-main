@@ -22,23 +22,22 @@ def families():
         a = family[0]
         b = family[1]
         c = family[2]
-        vis_dividers = [(d, e, f, g, h, i, j) for d in range(1, 30*(a+3)) for e in range(1, 30*(b+3)) for f in range(1, 30*(c+3)) for g in range(1, 30*(a+b+3)) for h in range(1, 30*(a+c+3)) for i in range(1, 30*(b+c+3)) for j in range(1, 30*(a+b+c+3))]
-        for vis in vis_dividers:
-            c3 = calc_charge(3, 1)
-            ca = calc_charge(a+3, vis[0])
-            cb = calc_charge(b+3, vis[1])
-            cc = calc_charge(c+3, vis[2])
-            cab = calc_charge(a+b+3, vis[3])
-            cac = calc_charge(a+c+3, vis[4])
-            ccb = calc_charge(b+c+3, vis[5])
-            cabc = calc_charge(a+b+c+3, vis[6])
-            charges = [c3, ca, cb, cc, cab, cac, ccb, cabc]
-            total = sum(charges) / len(charges)
-            pairings.append((total * max(vis), total,(a,b,c)))
+        vis = (math.comb(a+3, 3), math.comb(b+3, 3), math.comb(c+3, 3), math.comb(a+b+3, 3), math.comb(a+c+3, 3), math.comb(b+c+3, 3), math.comb(a+b+c+3, 3))
+        c3 = calc_charge(3, 1)
+        ca = calc_charge(a+3, vis[0])
+        cb = calc_charge(b+3, vis[1])
+        cc = calc_charge(c+3, vis[2])
+        cab = calc_charge(a+b+3, vis[3])
+        cac = calc_charge(a+c+3, vis[4])
+        ccb = calc_charge(b+c+3, vis[5])
+        cabc = calc_charge(a+b+c+3, vis[6])
+        charges = [c3, ca, cb, cc, cab, cac, ccb, cabc]
+        total = sum(charges) / len(charges)
+        pairings.append((total * max(vis), max(vis), total,(a,b,c)))
 
-            #identify highest possible total charge
-            if total >= worst_charge:
-                worst_charge = total
+        #identify highest possible total charge
+        if total * c >= worst_charge:
+            worst_charge = total * c
     
     outfile = open("famstest.txt","w")
 
