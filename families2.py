@@ -219,3 +219,9 @@ print(p.LpStatus[status])   # The solution status
 # Printing the final solution
 print(p.value(x), p.value(y), p.value(Lp_prob.objective))  
 
+
+
+
+#acces value as part of list
+#don't try to handle all cases at once
+#maybe don't have visibility (a,b,c) as variables
